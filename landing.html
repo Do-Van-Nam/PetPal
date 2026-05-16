@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetPal - Người Bạn Tốt Nhất Của Thú Cưng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #EC4899;
+            --pink-dark: #D8317D;
+            --pink-light: #FDF2F8;
+            --pink-glow: rgba(236, 72, 153, 0.15);
+            --dark: #1B1C1C;
+            --dark-soft: #514345;
+            --light: #FFF9FA;
+            --cream: #FBF9F8;
+            --green: #2F6A3F;
+            --green-light: #E8F5E9;
+            --gray: #9E9E9E;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 60px rgba(236, 72, 153, 0.15);
+            --shadow-xl: 0 40px 80px rgba(0, 0, 0, 0.12);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 32px;
+            --radius-xl: 40px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── Navigation ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.25rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid transparent;
+            transition: all var(--transition);
+        }
+
+        nav.scrolled {
+            padding: 0.85rem 5%;
+            border-bottom-color: rgba(0, 0, 0, 0.04);
+            box-shadow: 0 1px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--pink), #F472B6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            -webkit-text-fill-color: initial;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-soft);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--pink);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2.5px;
+            background: var(--pink);
+            border-radius: 4px;
+            transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+
+        .mobile-toggle span {
+            width: 26px;
+            height: 2.5px;
+            background: var(--dark);
+            border-radius: 4px;
+            transition: all 0.3s;
+            transform-origin: center;
+        }
+
+        .mobile-toggle.active span:nth-child(1) {
+            transform: translateY(7.5px) rotate(45deg);
+        }
+
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .mobile-toggle.active span:nth-child(3) {
+            transform: translateY(-7.5px) rotate(-45deg);
+        }
+
+        /* ─── Buttons ─── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0.85rem 2.2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all var(--transition);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pink), #F472B6);
+            color: white;
+            box-shadow: 0 8px 30px var(--pink-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--dark);
+            border: 2px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+            background: var(--pink-light);
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--pink);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: var(--pink-light);
+            color: var(--pink);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-pill:hover {
+            background: var(--pink);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 7rem 5% 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-glow {
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: heroFloat 12s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .hero-bg-glow-2 {
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(47, 106, 63, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: heroFloat 10s ease-in-out infinite reverse;
+            pointer-events: none;
+        }
+
+        @keyframes heroFloat {
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-40px) scale(1.05);
+            }
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 580px;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1.2rem;
+            background: var(--pink-light);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--pink);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(236, 72, 153, 0.15);
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--pink);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.5);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.08;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1.5px;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--pink), #F472B6, #A855F7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 .highlight-green {
+            background: linear-gradient(135deg, var(--green), #4CAF50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--dark-soft);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            max-width: 480px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats-row {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .hero-stat {
+            text-align: left;
+        }
+
+        .hero-stat-number {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* ─── Hero Visual ─── */
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .phone-frame {
+            width: 300px;
+            height: 600px;
+            background: var(--dark);
+            border-radius: var(--radius-xl);
+            padding: 10px;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            transform: perspective(1200px) rotateY(-8deg) rotateX(4deg);
+            transition: transform 0.8s ease;
+        }
+
+        .phone-frame:hover {
+            transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #FFF5F7 0%, #F0FDF4 100%);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 28px;
+            background: var(--dark);
+            border-radius: 0 0 16px 16px;
+            z-index: 5;
+        }
+
+        .phone-status {
+            position: absolute;
+            top: 12px;
+            left: 24px;
+            right: 24px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: white;
+            font-weight: 600;
+            z-index: 6;
+            opacity: 0.8;
+        }
+
+        .phone-app-header {
+            margin-top: 35px;
+            padding: 16px 20px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .phone-app-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--pink), #F472B6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .phone-bell {
+            width: 32px;
+            height: 32px;
+            background: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .phone-pets {
+            padding: 8px 16px;
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .phone-pets::-webkit-scrollbar {
+            display: none;
+        }
+
+        .phone-pet-avatar {
+            min-width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 2.5px solid transparent;
+            background: var(--cream);
+            position: relative;
+        }
+
+        .phone-pet-avatar.active {
+            border-color: var(--pink);
+            background: white;
+            box-shadow: 0 0 0 4px var(--pink-glow);
+        }
+
+        .phone-pet-name {
+            font-size: 0.55rem;
+            text-align: center;
+            color: var(--dark-soft);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .phone-card {
+            margin: 12px 16px;
+            padding: 16px;
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .phone-card-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .phone-card-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .phone-card-label {
+            font-size: 0.6rem;
+            color: var(--gray);
+        }
+
+        .phone-card-value {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--green);
+        }
+
+        .phone-progress {
+            height: 5px;
+            background: #E8F5E9;
+            border-radius: 4px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        .phone-progress-fill {
+            height: 100%;
+            width: 75%;
+            background: linear-gradient(90deg, var(--green), #66BB6A);
+            border-radius: 4px;
+            animation: progressAnim 3s ease-in-out infinite;
+        }
+
+        @keyframes progressAnim {
+            0%,
+            100% {
+                width: 75%;
+            }
+            50% {
+                width: 85%;
+            }
+        }
+
+        .phone-memories {
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .phone-memory-thumb {
+            aspect-ratio: 1;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, #FCE4EC, #F3E5F5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* Floating emojis around phone */
+        .floating-emoji {
+            position: absolute;
+            font-size: 2.5rem;
+            animation: emojiFloat 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+
+        .floating-emoji:nth-child(1) {
+            top: -5%;
+            right: -15%;
+            animation-delay: 0s;
+        }
+        .floating-emoji:nth-child(2) {
+            bottom: 10%;
+            left: -20%;
+            animation-delay: 0.8s;
+            font-size: 2rem;
+        }
+        .floating-emoji:nth-child(3) {
+            top: 40%;
+            right: -18%;
+            animation-delay: 1.6s;
+            font-size: 1.8rem;
+        }
+        .floating-emoji:nth-child(4) {
+            bottom: -5%;
+            right: -5%;
+            animation-delay: 2.4s;
+        }
+
+        @keyframes emojiFloat {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+            66% {
+                transform: translateY(-8px) rotate(-3deg);
+            }
+        }
+
+        /* ─── Sections Common ─── */
+        section {
+            padding: 6rem 5%;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: var(--pink-light);
+            color: var(--pink);
+            margin-bottom: 1rem;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-header h2 .highlight {
+            background: linear-gradient(135deg, var(--pink), #F472B6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            color: var(--dark-soft);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* ─── Features ─── */
+        .features {
+            background: white;
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.1), transparent);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: 2rem 1.8rem;
+            border-radius: var(--radius-md);
+            background: var(--cream);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: all var(--transition);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--pink), #F472B6);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            background: white;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .feature-card:nth-child(1) .feature-icon {
+            background: var(--pink-light);
+        }
+        .feature-card:nth-child(2) .feature-icon {
+            background: var(--green-light);
+        }
+        .feature-card:nth-child(3) .feature-icon {
+            background: #FEF3C7;
+        }
+        .feature-card:nth-child(4) .feature-icon {
+            background: #DBEAFE;
+        }
+        .feature-card:nth-child(5) .feature-icon {
+            background: #F3E8FF;
+        }
+        .feature-card:nth-child(6) .feature-icon {
+            background: #FCE7F3;
+        }
+
+        .feature-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.3px;
+        }
+
+        .feature-card p {
+            color: var(--dark-soft);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* ─── Stats ─── */
+        .stats {
+            background: linear-gradient(135deg, var(--pink), #D8317D, #A855F7);
+            padding: 5rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .stat-plus {
+            font-size: 1.8rem;
+            font-weight: 300;
+            opacity: 0.7;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            margin-top: 0.3rem;
+        }
+
+        .stat-divider {
+            width: 40px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            margin: 0.8rem auto 0;
+        }
+
+        /* ─── Testimonials ─── */
+        .testimonials {
+            background: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--cream);
+            padding: 2rem 1.8rem;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: all var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            background: white;
+        }
+
+        .testimonial-stars {
+            color: #F59E0B;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            color: var(--dark-soft);
+            font-size: 0.92rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .testimonial-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background: var(--pink-light);
+            flex-shrink: 0;
+        }
+
+        .testimonial-info h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .testimonial-info span {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* ─── Pricing ─── */
+        .pricing {
+            background: var(--cream);
+            position: relative;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all var(--transition);
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .pricing-card.popular {
+            background: white;
+            border: 2px solid var(--pink);
+            box-shadow: var(--shadow-lg);
+            transform: scale(1.05);
+            z-index: 2;
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.3rem 1.2rem;
+            background: linear-gradient(135deg, var(--pink), #F472B6);
+            color: white;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .pricing-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-price {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--dark);
+            letter-spacing: -1.5px;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--gray);
+            letter-spacing: 0;
+        }
+
+        .pricing-desc {
+            font-size: 0.9rem;
+            color: var(--dark-soft);
+            margin: 1rem 0 1.5rem;
+            line-height: 1.6;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.6rem 0;
+            font-size: 0.9rem;
+            color: var(--dark-soft);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li .check {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .pricing-features li .cross {
+            color: #EF4444;
+            font-weight: 700;
+            opacity: 0.5;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+        }
+
+        /* ─── FAQ ─── */
+        .faq {
+            background: white;
+        }
+
+        .faq-list {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 1.2rem 0;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            user-select: none;
+        }
+
+        .faq-question h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--dark);
+            transition: color 0.3s;
+        }
+
+        .faq-question:hover h4 {
+            color: var(--pink);
+        }
+
+        .faq-arrow {
+            font-size: 1.2rem;
+            transition: transform 0.4s ease;
+            color: var(--gray);
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+            color: var(--pink);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0.5rem 2rem 0.5rem 0;
+        }
+
+        .faq-answer p {
+            color: var(--dark-soft);
+            font-size: 0.92rem;
+            line-height: 1.8;
+        }
+
+        /* ─── CTA ─── */
+        .cta {
+            background: var(--dark);
+            padding: 5rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background-image: radial-gradient(circle at 25px 25px, white 2px, transparent 0);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        .cta h2 {
+            color: white;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            position: relative;
+        }
+
+        .cta p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.15rem;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .cta .btn-primary {
+            padding: 1rem 3rem;
+            font-size: 1.05rem;
+            box-shadow: 0 8px 30px rgba(236, 72, 153, 0.3);
+        }
+
+        .cta .btn-outline-light {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta .btn-outline-light:hover {
+            border-color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            background: #111;
+            padding: 4rem 5% 2rem;
+            color: white;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: inline-flex;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            max-width: 300px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--pink);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: white;
+        }
+
+        .footer-col a {
+            display: block;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.35rem 0;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--pink);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom-links a:hover {
+            color: white;
+        }
+
+        /* ─── Scroll Animations ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        /* ─── Back to Top ─── */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--pink);
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+            transition: all 0.4s ease;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(236, 72, 153, 0.4);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonial-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .pricing-card.popular {
+                transform: none;
+            }
+
+            .pricing-card.popular:hover {
+                transform: translateY(-8px);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                gap: 1.5rem;
+                box-shadow: var(--shadow-xl);
+                transition: right 0.4s ease;
+                z-index: 999;
+                align-items: flex-start;
+            }
+
+            .nav-links.open {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
+            }
+
+            .nav-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.3);
+                z-index: 998;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.4s ease;
+            }
+
+            .nav-overlay.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 6rem;
+                gap: 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats-row {
+                justify-content: center;
+            }
+
+            .phone-frame {
+                width: 240px;
+                height: 480px;
+                transform: none;
+            }
+
+            .phone-frame:hover {
+                transform: none;
+            }
+
+            .floating-emoji {
+                display: none;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .cta h2 {
+                font-size: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-brand p {
+                margin: 0 auto;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .back-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-stats-row {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            .phone-frame {
+                width: 200px;
+                height: 400px;
+            }
+
+            .section-header h2 {
+                font-size: 1.7rem;
+            }
+
+            .pricing-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">
+            <span class="logo-icon">🐾</span>
+            PetPal
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#features">Tính năng</a></li>
+            <li><a href="#testimonials">Đánh giá</a></li>
+            <li><a href="#pricing">Bảng giá</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#download" class="btn btn-primary" style="padding: 0.6rem 1.5rem;">Tải ngay</a></li>
+        </ul>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-glow"></div>
+        <div class="hero-bg-glow-2"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                Ứng dụng chăm sóc thú cưng số 1 Việt Nam
+            </div>
+            <h1>
+                Người Bạn Tốt Nhất<br>
+                <span class="highlight">Của Thú Cưng</span><br>
+                <span class="highlight-green">Của Bạn</span>
+            </h1>
+            <p>Theo dõi sức khỏe, lịch tiêm chủng, đặt lịch hẹn bác sĩ thú y và kết nối với cộng đồng yêu thú cưng. Tất cả trong một ứng dụng duy nhất.</p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn btn-primary">
+                    📱 Tải ứng dụng
+                </a>
+                <a href="#features" class="btn btn-outline">
+                    Khám phá →
+                </a>
+            </div>
+            <div class="hero-stats-row">
+                <div class="hero-stat">
+                    <div class="hero-stat-number">50K+</div>
+                    <div class="hero-stat-label">Thú cưng hạnh phúc</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">4.9</div>
+                    <div class="hero-stat-label">Đánh giá ứng dụng</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">500+</div>
+                    <div class="hero-stat-label">Đối tác thú y</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-emoji">🐕</div>
+            <div class="floating-emoji">🐈</div>
+            <div class="floating-emoji">🐰</div>
+            <div class="floating-emoji">🦜</div>
+            <div class="phone-frame">
+                <div class="phone-screen">
+                    <div class="phone-notch"></div>
+                    <div class="phone-status">
+                        <span>9:41</span>
+                        <span>📶 🔋</span>
+                    </div>
+                    <div class="phone-app-header">
+                        <span class="phone-app-title">PetPal</span>
+                        <span class="phone-bell">🔔</span>
+                    </div>
+                    <div class="phone-pets">
+                        <div>
+                            <div class="phone-pet-avatar active">🐕</div>
+                            <div class="phone-pet-name">Bella</div>
+                        </div>
+                        <div>
+                            <div class="phone-pet-avatar">🐈</div>
+                            <div class="phone-pet-name">Luna</div>
+                        </div>
+                        <div>
+                            <div class="phone-pet-avatar">🐰</div>
+                            <div class="phone-pet-name">Max</div>
+                        </div>
+                        <div>
+                            <div class="phone-pet-avatar">➕</div>
+                            <div class="phone-pet-name">Thêm</div>
+                        </div>
+                    </div>
+                    <div class="phone-card">
+                        <div class="phone-card-title">💉 Lịch tiêm chủng</div>
+                        <div class="phone-card-row">
+                            <span class="phone-card-label">Dại</span>
+                            <span class="phone-card-value">✅ Đã tiêm</span>
+                        </div>
+                        <div class="phone-card-row">
+                            <span class="phone-card-label">5 bệnh</span>
+                            <span class="phone-card-value">📅 12/12</span>
+                        </div>
+                        <div class="phone-progress">
+                            <div class="phone-progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="phone-memories">
+                        <div class="phone-memory-thumb">🐾</div>
+                        <div class="phone-memory-thumb">🌳</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="section-header reveal">
+            <div class="section-tag">✨ Tính năng</div>
+            <h2>Mọi thứ thú cưng của bạn <span class="highlight">cần</span></h2>
+            <p>Những tính năng mạnh mẽ giúp người bạn nhỏ của bạn luôn khỏe mạnh, vui vẻ và an toàn</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card reveal reveal-delay-1">
+                <div class="feature-icon">💉</div>
+                <h3>Theo dõi tiêm chủng</h3>
+                <p>Không bao giờ bỏ lỡ mũi tiêm nào. Nhận nhắc nhở thông minh cho tất cả lịch tiêm và kiểm tra sức khỏe.</p>
+            </div>
+            <div class="feature-card reveal reveal-delay-2">
+                <div class="feature-icon">🏥</div>
+                <h3>Đặt lịch bác sĩ thú y</h3>
+                <p>Đặt và quản lý lịch hẹn dễ dàng. Theo dõi lịch sử khám bệnh và đơn thuốc.</p>
+            </div>
+            <div class="feature-card reveal reveal-delay-3">
+                <div class="feature-icon">🍖</div>
+                <h3>Chế độ dinh dưỡng</h3>
+                <p>Theo dõi bữa ăn, thiết lập lịch cho ăn và nhận đề xuất dinh dưỡng cá nhân hóa.</p>
+            </div>
+            <div class="feature-card reveal reveal-delay-1">
+                <div class="feature-icon">📍</div>
+                <h3>Địa điểm thân thiện</h3>
+                <p>Khám phá công viên, quán cà phê và khách sạn chào đón bạn đồng hành nhỏ của bạn.</p>
+            </div>
+            <div class="feature-card reveal reveal-delay-2">
+                <div class="feature-icon">💬</div>
+                <h3>Cộng đồng</h3>
+                <p>Kết nối với những người yêu thú cưng khác, chia sẻ kinh nghiệm và tìm bạn chơi cho thú cưng.</p>
+            </div>
+            <div class="feature-card reveal reveal-delay-3">
+                <div class="feature-icon">📸</div>
+                <h3>Nhật ký ảnh</h3>
+                <p>Lưu giữ và sắp xếp những kỷ niệm đẹp với dòng thời gian ảnh sống động.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item reveal">
+                <div class="stat-icon">🐾</div>
+                <div class="stat-number">50<span class="stat-plus">K+</span></div>
+                <div class="stat-label">Thú cưng hạnh phúc</div>
+                <div class="stat-divider"></div>
+            </div>
+            <div class="stat-item reveal reveal-delay-1">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-number">4.9</div>
+                <div class="stat-label">Đánh giá trung bình</div>
+                <div class="stat-divider"></div>
+            </div>
+            <div class="stat-item reveal reveal-delay-2">
+                <div class="stat-icon">🏥</div>
+                <div class="stat-number">500<span class="stat-plus">+</span></div>
+                <div class="stat-label">Đối tác thú y</div>
+                <div class="stat-divider"></div>
+            </div>
+            <div class="stat-item reveal reveal-delay-3">
+                <div class="stat-icon">💚</div>
+                <div class="stat-number">98<span class="stat-plus">%</span></div>
+                <div class="stat-label">Hài lòng</div>
+                <div class="stat-divider"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header reveal">
+            <div class="section-tag">💬 Đánh giá</div>
+            <h2>Được yêu thích bởi <span class="highlight">hàng ngàn</span> người yêu thú cưng</h2>
+            <p>Xem những gì cộng đồng của chúng tôi nói về PetPal</p>
+        </div>
+        <div class="testimonial-grid">
+            <div class="testimonial-card reveal reveal-delay-1">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"PetPal thực sự là cứu tinh! Mình không bao giờ quên lịch tiêm chủng của bé cún nữa. Tính năng đặt lịch bác sĩ thú y thật tiện lợi!"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">🐕</div>
+                    <div class="testimonial-info">
+                        <h4>Minh Anh</h4>
+                        <span>Mẹ của bé Cún</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal reveal-delay-2">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Mình yêu tính năng cộng đồng! Đã tìm được quán cà phê thân thiện với thú cưng gần nhà và kết bạn mới cho bé mèo."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">🐈</div>
+                    <div class="testimonial-info">
+                        <h4>Hoàng Long</h4>
+                        <span>Bố của bé Miu</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal reveal-delay-3">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Ứng dụng chăm sóc thú cưng tốt nhất mình từng dùng! Toàn diện, thiết kế đẹp và thực sự hữu ích. Rất đáng để tải!"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">🐰</div>
+                    <div class="testimonial-info">
+                        <h4>Phương Thảo</h4>
+                        <span>Mẹ của bé Thỏ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="section-header reveal">
+            <div class="section-tag">💰 Bảng giá</div>
+            <h2>Chọn gói phù hợp với <span class="highlight">bạn</span></h2>
+            <p>Tất cả các gói đều bao gồm dùng thử 14 ngày miễn phí</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card reveal reveal-delay-1">
+                <div class="pricing-name">Cơ bản</div>
+                <div class="pricing-price">Miễn phí</div>
+                <p class="pricing-desc">Hoàn hảo để bắt đầu chăm sóc thú cưng của bạn</p>
+                <ul class="pricing-features">
+                    <li><span class="check">✓</span> Hồ sơ thú cưng</li>
+                    <li><span class="check">✓</span> Nhắc nhở tiêm chủng</li>
+                    <li><span class="check">✓</span> Nhật ký ảnh (5 ảnh)</li>
+                    <li><span class="check">✓</span> Cộng đồng cơ bản</li>
+                </ul>
+                <a href="#download" class="btn btn-outline">Bắt đầu</a>
+            </div>
+            <div class="pricing-card popular reveal reveal-delay-2">
+                <div class="popular-badge">Phổ biến nhất</div>
+                <div class="pricing-name">Cao cấp</div>
+                <div class="pricing-price">49.000₫ <span>/tháng</span></div>
+                <p class="pricing-desc">Trải nghiệm chăm sóc thú cưng toàn diện nhất</p>
+                <ul class="pricing-features">
+                    <li><span class="check">✓</span> Mọi tính năng Cơ bản</li>
+                    <li><span class="check">✓</span> Đặt lịch bác sĩ thú y</li>
+                    <li><span class="check">✓</span> Nhật ký ảnh không giới hạn</li>
+                    <li><span class="check">✓</span> Theo dõi dinh dưỡng</li>
+                    <li><span class="check">✓</span> Cộng đồng cao cấp</li>
+                    <li><span class="check">✓</span> Hỗ trợ ưu tiên 24/7</li>
+                </ul>
+                <a href="#download" class="btn btn-primary">Dùng thử miễn phí</a>
+            </div>
+            <div class="pricing-card reveal reveal-delay-3">
+                <div class="pricing-name">Gia đình</div>
+                <div class="pricing-price">99.000₫ <span>/tháng</span></div>
+                <p class="pricing-desc">Dành cho gia đình nhiều thú cưng</p>
+                <ul class="pricing-features">
+                    <li><span class="check">✓</span> Mọi tính năng Cao cấp</li>
+                    <li><span class="check">✓</span> Lên đến 5 hồ sơ thú cưng</li>
+                    <li><span class="check">✓</span> Chia sẻ với gia đình</li>
+                    <li><span class="check">✓</span> Báo cáo sức khỏe chi tiết</li>
+                    <li><span class="check">✓</span> Ưu đãi đối tác độc quyền</li>
+                    <li><span class="check">✓</span> Hỗ trợ VIP 24/7</li>
+                </ul>
+                <a href="#download" class="btn btn-outline">Dùng thử miễn phí</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="section-header reveal">
+            <div class="section-tag">❓ FAQ</div>
+            <h2>Câu hỏi <span class="highlight">thường gặp</span></h2>
+            <p>Những thắc mắc phổ biến nhất về PetPal</p>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4>PetPal có hoàn toàn miễn phí không?</h4>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>PetPal có gói Cơ bản hoàn toàn miễn phí với đầy đủ tính năng cốt lõi. Bạn cũng có thể nâng cấp lên gói Cao cấp hoặc Gia đình để trải nghiệm nhiều tính năng hơn với 14 ngày dùng thử miễn phí.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4>Làm thế nào để đặt lịch hẹn bác sĩ thú y?</h4>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Bạn chỉ cần vào mục "Bác sĩ thú y" trong ứng dụng, chọn phòng khám gần bạn, chọn thời gian phù hợp và xác nhận. PetPal sẽ gửi nhắc nhở trước lịch hẹn 24 giờ.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4>Tôi có thể quản lý nhiều thú cưng không?</h4>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Có! Bạn có thể thêm không giới hạn số lượng thú cưng trong tài khoản của mình. Mỗi thú cưng sẽ có hồ sơ riêng với lịch sử sức khỏe, tiêm chủng và nhật ký riêng.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4>Dữ liệu của tôi có được bảo mật không?</h4>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Tuyệt đối. PetPal tuân thủ các tiêu chuẩn bảo mật cao nhất. Dữ liệu của bạn được mã hóa đầu cuối và không bao giờ chia sẻ với bên thứ ba khi chưa có sự đồng ý của bạn.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4>Tôi có thể hủy đăng ký bất cứ lúc nào không?</h4>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Chắc chắn rồi! Bạn có thể hủy đăng ký bất cứ lúc nào. Nếu bạn hủy trong thời gian dùng thử 14 ngày, bạn sẽ không bị tính phí. Nếu đã thanh toán, bạn vẫn tiếp tục sử dụng đến hết kỳ thanh toán.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="download">
+        <div class="cta-pattern"></div>
+        <h2 class="reveal">Sẵn sàng tham gia <span class="highlight">gia đình PetPal?</span></h2>
+        <p class="reveal reveal-delay-1">Tải PetPal ngay hôm nay và dành cho thú cưng của bạn sự chăm sóc xứng đáng nhất</p>
+        <div class="cta-buttons reveal reveal-delay-2">
+            <a href="#" class="btn btn-primary">📱 Tải cho iOS</a>
+            <a href="#" class="btn btn-outline-light">🤖 Tải cho Android</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <span class="logo-icon">🐾</span>
+                    PetPal
+                </a>
+                <p>Ứng dụng chăm sóc thú cưng hàng đầu Việt Nam. Đồng hành cùng bạn và người bạn nhỏ của bạn.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook">📘</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="YouTube">▶️</a>
+                    <a href="#" aria-label="TikTok">🎵</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Sản phẩm</h4>
+                <a href="#features">Tính năng</a>
+                <a href="#pricing">Bảng giá</a>
+                <a href="#">Tải ứng dụng</a>
+                <a href="#">Phiên bản cập nhật</a>
+            </div>
+            <div class="footer-col">
+                <h4>Công ty</h4>
+                <a href="#">Về chúng tôi</a>
+                <a href="#">Blog</a>
+                <a href="#">Tuyển dụng</a>
+                <a href="#">Liên hệ</a>
+            </div>
+            <div class="footer-col">
+                <h4>Hỗ trợ</h4>
+                <a href="#">Trung tâm trợ giúp</a>
+                <a href="#faq">FAQ</a>
+                <a href="#">Điều khoản dịch vụ</a>
+                <a href="#">Chính sách bảo mật</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 PetPal. Tất cả quyền được bảo lưu. Made with ❤️ for pet lovers</p>
+            <div class="footer-bottom-links">
+                <a href="#">Chính sách bảo mật</a>
+                <a href="#">Điều khoản sử dụng</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Lên đầu trang">
+        ↑
+    </button>
+
+    <script>
+        // ─── Navbar scroll effect ───
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+
+            // Back to top
+            const btn = document.getElementById('backToTop');
+            btn.classList.toggle('visible', window.scrollY > 400);
+        });
+
+        // ─── Mobile menu ───
+        const toggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        const overlay = document.getElementById('navOverlay');
+
+        function openMenu() {
+            toggle.classList.add('active');
+            navLinks.classList.add('open');
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            toggle.classList.remove('active');
+            navLinks.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        toggle.addEventListener('click', () => {
+            if (navLinks.classList.contains('open')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        overlay.addEventListener('click', closeMenu);
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // ─── Smooth scroll for anchor links ───
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ─── FAQ accordion ───
+        function toggleFaq(el) {
+            const item = el.parentElement;
+            item.classList.toggle('active');
+        }
+
+        // ─── Scroll reveal animation ───
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+      // ─── Counter animation ───
+      const counterObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  const el = entry.target;
+                  const text = el.textContent;
+                  const numMatch = text.match(/[\d]+\.?[\d]*/);
+                  if (!numMatch) return;
+
+                  const target = parseFloat(numMatch[0]);
+                  const isDecimal = target % 1 !== 0;
+                  const steps = 40;
+                  let current = 0;
+                  const increment = target / steps;
+
+                  const timer = setInterval(() => {
+                      current += increment;
+                      if (current >= target) {
+                          current = target;
+                          clearInterval(timer);
+                      }
+                      const formatted = isDecimal ? current.toFixed(1) : Math.floor(current);
+                      el.textContent = text.replace(numMatch[0], formatted);
+                  }, 30);
+
+                  counterObserver.unobserve(el);
+              }
+          });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('.stat-number').forEach(el => {
+          counterObserver.observe(el);
+      });
+
+        // ─── Parallax effect on hero ───
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero-visual .phone-frame');
+            if (hero && window.innerWidth > 768) {
+                const scrollY = window.pageYOffset;
+                const rate = scrollY * 0.05;
+                hero.style.transform = `perspective(1200px) rotateY(${-8 + rate * 0.3}deg) rotateX(${4 - rate * 0.2}deg) translateY(${-rate}px)`;
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Hàm mở URL chung
@@ -107,4 +111,14 @@ num? parseNum(dynamic value) {
   if (value is num) return value;
   if (value is String) return num.tryParse(value);
   return null;
+}
+
+Future<String?> saveImageToLocal(XFile? image) async {
+  if (image == null) return null;
+  final appDir = await getApplicationDocumentsDirectory();
+  final fileName = "${DateTime.now().millisecondsSinceEpoch}.jpg";
+  final savedImage = await File(image.path).copy(
+    '${appDir.path}/$fileName',
+  );
+  return savedImage.path;
 }

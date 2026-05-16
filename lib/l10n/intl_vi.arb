@@ -14,6 +14,18 @@
   "bella": "Bella",
   "luna": "Luna",
   "max": "Max",
-  "goldenRetriever3YearsOld": "Golden Retriever • 3 Years Old"
-
+  "goldenRetriever3YearsOld": "Golden Retriever • 3 Years Old",
+  "account": "Tài khoản",
+  "personalInformation": "Thông tin cá nhân",
+  "myPets": "Thú cưng của tôi",
+  "paymentMethods": "Phương thức thanh toán",
+  "preferences": "Tùy chọn",
+  "notifications": "Thông báo",
+  "locationServices": "Dịch vụ vị trí",
+  "support": "Hỗ trợ",
+  "helpSupport": "Trợ giúp & Hỗ trợ",
+  "privacyPolicy": "Chính sách bảo mật",
+  "reviewOnStore": "Đánh giá ứng dụng",
+  "logout": "Đăng xuất",
+  "proMember": "Thành viên Pro"
 }

@@ -45,19 +45,19 @@ class CustomBottomNav extends StatelessWidget {
                     AppLocalizations.of(context)!.petPal,
                   ),
                 ),
+                // Expanded(
+                //   child: _buildNavItem(
+                //     2,
+                //     2 == currentIndex
+                //         ? AppImages.icChatActive
+                //         : AppImages.icChat,
+                //     AppLocalizations.of(context)!.petPal,
+                //   ),
+                // ),
                 Expanded(
                   child: _buildNavItem(
                     2,
                     2 == currentIndex
-                        ? AppImages.icChatActive
-                        : AppImages.icChat,
-                    AppLocalizations.of(context)!.petPal,
-                  ),
-                ),
-                Expanded(
-                  child: _buildNavItem(
-                    3,
-                    3 == currentIndex
                         ? AppImages.icSettingActive
                         : AppImages.icSetting,
                     AppLocalizations.of(context)!.petPal,
@@ -162,19 +162,19 @@ class _NavItemState extends State<_NavItem>
                   BlendMode.srcIn,
                 ),
               ),
-              const SizedBox(height: 4),
-              Text(
-                widget.label,
-                style: widget.isSelected
-                    ? AppStyles.fredoka11Medium.copyWith(
-                        fontSize: 10,
-                        color: AppColors.color_ED4799,
-                      )
-                    : AppStyles.fredoka11Regular.copyWith(
-                        fontSize: 10,
-                        color: AppColors.color_A8A39E,
-                      ),
-              ),
+              // const SizedBox(height: 4),
+              // Text(
+              //   widget.label,
+              //   style: widget.isSelected
+              //       ? AppStyles.fredoka11Medium.copyWith(
+              //           fontSize: 10,
+              //           color: AppColors.color_ED4799,
+              //         )
+              //       : AppStyles.fredoka11Regular.copyWith(
+              //           fontSize: 10,
+              //           color: AppColors.color_A8A39E,
+              //         ),
+              // ),
             ],
           ),
         ),

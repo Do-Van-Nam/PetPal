@@ -226,35 +226,6 @@ class UserSocketService {
       _emitRideEvent('ride.started', data);
     });
 
-    s.on('ride.completed', (data) async {
-      await LocalNotificationService.instance.showNotification(
-        title: "Chuyến đi đã hoàn thành",
-        body: "Chuyến đi đã hoàn thành",
-      );
-      await SharePreferenceUtil.saveCurrentRide(null);
-      print('UserSocketService 📨 ride.completed: $data');
-      _emitRideEvent('ride.completed', data);
-    });
-    s.on('ride.rejected', (data) async {
-      await SharePreferenceUtil.saveCurrentRide(null);
-      await LocalNotificationService.instance.showNotification(
-        title: "Chuyến đi đã bị từ chối",
-        body: "Chuyến đi đã bị từ chối",
-      );
-      print('UserSocketService 📨 ride.rejected: $data');
-      _emitRideEvent('ride.rejected', data);
-    });
-
-    s.on('ride.cancelled', (data) async {
-      await SharePreferenceUtil.saveCurrentRide(null);
-      await LocalNotificationService.instance.showNotification(
-        title: "Chuyến đi đã bị hủy",
-        body: "Chuyến đi đã bị hủy",
-      );
-      print('UserSocketService 📨 ride.cancelled: $data');
-      _emitRideEvent('ride.cancelled', data);
-    });
-
     s.on('ride:tracking.updated', (data) {
       print('UserSocketService 📨 ride:tracking.updated: $data');
       _emitRideEvent('ride:tracking.updated', data);
