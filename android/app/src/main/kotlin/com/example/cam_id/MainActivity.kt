@@ -1,4 +1,4 @@
-package com.example.demo_app
+package com.justcode.petpal
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 import android.os.Bundle

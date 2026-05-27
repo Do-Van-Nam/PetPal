@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "123",
-    "project_id": "nhm-datxe-f87c0",
-    "storage_bucket": "nhm-datxe-f87c0.firebasestorage.app"
+    "project_number": "380677093202",
+    "project_id": "petpal-20508",
+    "storage_bucket": "petpal-20508.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:123:android:77b7fa2ff67c1477b4f6e2",
+        "mobilesdk_app_id": "1:380677093202:android:8af084affc85624b436c8b",
         "android_client_info": {
           "package_name": "com.justcode.petpal"
         }
       },
       "oauth_client": [
         {
-          "client_id": "123-8pkd28lar1mofhju2t1ocrhhcv4uod82.apps.googleusercontent.com",
+          "client_id": "380677093202-96ulv04ipvlrc8l2pck4movm3kvacpv6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAh8g7qv3SXUrgdco_Fr9VeKoy7G0uCY6w"
+          "current_key": "AIzaSyBvUPgcSYA3B3AcY-tiDkZh26HcjdptvtY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "123-8pkd28lar1mofhju2t1ocrhhcv4uod82.apps.googleusercontent.com",
+              "client_id": "380677093202-96ulv04ipvlrc8l2pck4movm3kvacpv6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

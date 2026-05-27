@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.demo_app"
+    namespace = "com.justcode.petpal"
     compileSdk = flutter.compileSdkVersion
     // ndkVersion = "27.0.12077973"
     ndkVersion = "28.1.13356709"
