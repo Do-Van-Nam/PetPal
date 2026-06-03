@@ -28,8 +28,8 @@ const String PATH_ADD_PET = "/add-pet";
 const String PATH_PHOTO_DETAIL = "/photo-detail";
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
-final GlobalKey<NavigatorState> _shellNavigatorKey =
-    GlobalKey<NavigatorState>();
+// final GlobalKey<NavigatorState> _shellNavigatorKey =
+//     GlobalKey<NavigatorState>();
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: PATH_SPLASH,
