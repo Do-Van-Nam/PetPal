@@ -49,6 +49,7 @@ platform :android do
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID_ANDROID"],
       service_credentials_file: "fastlane/service-account.json",
+      android_artifact_type: "APK",
       apk_path: "../../build/app/outputs/flutter-apk/app-release.apk",
       groups: "internal-testers",
       release_notes: "Build tự động từ CI/CD"
