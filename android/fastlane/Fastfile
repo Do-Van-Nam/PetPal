@@ -43,12 +43,13 @@ platform :android do
 
     sh("pwd")
 
-    sh("ls -R ../build/app/outputs/flutter-apk")
+    sh("ls -R ../../build/app/outputs/flutter-apk")
+    sh("find ../../build -name '*.apk'")
     # Upload lên Firebase App Distribution
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID_ANDROID"],
       service_credentials_file: "fastlane/service-account.json",
-      apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      apk_path: "../../build/app/outputs/flutter-apk/app-release.apk",
       groups: "internal-testers",
       release_notes: "Build tự động từ CI/CD"
     )
