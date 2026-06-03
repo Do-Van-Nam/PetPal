@@ -60,6 +60,10 @@ jobs:
           bundler-cache: true
           ruby-version: '3.1'
 
+      - name: Install dependencies
+        working-directory: android
+        run: bundle install
+
       - name: Distribute to Firebase
         working-directory: android
         env:
