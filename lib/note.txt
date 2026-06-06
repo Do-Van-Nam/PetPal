@@ -5,3 +5,10 @@ keytool -genkey -v -keystore android/app/keystore.jks  -keyalg RSA -keysize 2048
 # tạo file text keystore trong terminal
 cd android/app
 certutil -encode keystore.jks keystore_base64.txt
+
+ 
+# tạo file text firebase trong power shell
+cd C:\petpal\android\app
+$bytes = [IO.File]::ReadAllBytes("C:\petpal\android\app\keystore.jks")
+$base64 = [Convert]::ToBase64String($bytes)
+$base64 | Out-File -FilePath "keystore_base64.txt" -Encoding ASCII -NoNewline
