@@ -87,11 +87,11 @@ jobs:
         working-directory: android
         run: bundle install
 
-      # - name: Distribute to Firebase
-      #   working-directory: android
-      #   env:
-      #     FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
-      #   run: bundle exec fastlane distribute
+      - name: Distribute to Firebase
+        working-directory: android
+        env:
+          FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
+        run: bundle exec fastlane distribute
 
   # ─── iOS (cần macOS) ───────────────────────────
   ios:
