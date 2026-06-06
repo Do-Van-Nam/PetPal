@@ -26,6 +26,7 @@ jobs:
       - name: Debug secrets securely
         run: |
           echo "=== Check Android Secrets Length ==="
+          echo "=== Check Android Secrets Length ==="
           echo "ANDROID_KEYSTORE_BASE64 length: ${#SECRET_KEYSTORE_B64}"
           echo "KEYSTORE_PASSWORD length: ${#SECRET_KEY_PASS}"
           echo "KEY_PASSWORD length: ${#SECRET_KEY_ALIAS_PASS}"
