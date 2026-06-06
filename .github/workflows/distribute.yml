@@ -67,8 +67,9 @@ jobs:
       # Decode Firebase service account
       - name: Setup Firebase credentials
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > android/fastlane/service-account.json
-
+          cat <<EOF > android/fastlane/service-account.json
+          ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          EOF
           echo "=== Firebase service account file info ==="
           ls -la android/fastlane/service-account.json
           head -c 200 android/fastlane/service-account.json | cat
