@@ -22,6 +22,21 @@ jobs:
         with:
           flutter-version: '3.38.5'
           cache: true
+      
+      - name: Debug secrets securely
+        run: |
+          echo "=== Check Android Secrets Length ==="
+          echo "ANDROID_KEYSTORE_BASE64 length: ${#SECRET_KEYSTORE_B64}"
+          echo "KEYSTORE_PASSWORD length: ${#SECRET_KEY_PASS}"
+          echo "KEY_PASSWORD length: ${#SECRET_KEY_ALIAS_PASS}"
+          echo "KEY_ALIAS length: ${#SECRET_KEY_ALIAS}"
+          echo "FIREBASE_SERVICE_ACCOUNT length: ${#SECRET_FIREBASE_SERVICE}"
+        env:
+          SECRET_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          SECRET_KEY_PASS: ${{ secrets.KEYSTORE_PASSWORD }}
+          SECRET_KEY_ALIAS_PASS: ${{ secrets.KEY_PASSWORD }}
+          SECRET_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          SECRET_FIREBASE_SERVICE: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
       - name: Restore pub cache
         uses: actions/cache@v4
@@ -51,7 +66,7 @@ jobs:
       # Decode Firebase service account
       - name: Setup Firebase credentials
         run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > android/fastlane/service-account.json
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > android/fastlane/service-account.json
 
           echo "=== Firebase service account file info ==="
           ls -la android/fastlane/service-account.json
