@@ -73,7 +73,9 @@ jobs:
           echo "=== Firebase service account file info ==="
           ls -la android/fastlane/service-account.json
           head -c 200 android/fastlane/service-account.json | cat
-
+      - name: Validate JSON
+        run: |
+          jq . android/fastlane/service-account.json
       - name: Setup Ruby & Fastlane
         uses: ruby/setup-ruby@v1
         with:
