@@ -53,6 +53,10 @@ jobs:
         run: |
           echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > android/fastlane/service-account.json
 
+          echo "=== Firebase service account file info ==="
+          ls -la android/fastlane/service-account.json
+          head -c 200 android/fastlane/service-account.json | cat
+
       - name: Setup Ruby & Fastlane
         uses: ruby/setup-ruby@v1
         with:
@@ -64,11 +68,11 @@ jobs:
         working-directory: android
         run: bundle install
 
-      - name: Distribute to Firebase
-        working-directory: android
-        env:
-          FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
-        run: bundle exec fastlane distribute
+      # - name: Distribute to Firebase
+      #   working-directory: android
+      #   env:
+      #     FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
+      #   run: bundle exec fastlane distribute
 
   # ─── iOS (cần macOS) ───────────────────────────
   ios:
@@ -94,8 +98,8 @@ jobs:
           bundler-cache: true
           ruby-version: '3.1'
 
-      - name: Distribute to Firebase
-        working-directory: ios
-        env:
-          FIREBASE_APP_ID_IOS: ${{ secrets.FIREBASE_APP_ID_IOS }}
-        run: bundle exec fastlane distribute
+      # - name: Distribute to Firebase
+      #   working-directory: ios
+      #   env:
+      #     FIREBASE_APP_ID_IOS: ${{ secrets.FIREBASE_APP_ID_IOS }}
+      #   run: bundle exec fastlane distribute
