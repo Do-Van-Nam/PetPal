@@ -45,17 +45,21 @@ platform :android do
 
     sh("ls -R ../../build/app/outputs/flutter-apk")
     sh("find ../../build -name '*.apk'")
-    apk_path = File.expand_path("../build/app/outputs/flutter-apk/app-release.apk", __dir__)
-    # Upload lên Firebase App Distribution
+    
+    sh("pwd")
+    sh("ls -la ../../build/app/outputs/flutter-apk/")
+    apk_path = File.expand_path("../../build/app/outputs/flutter-apk/app-release.apk", __dir__)
+
     firebase_app_distribution(
-      app: ENV["FIREBASE_APP_ID_ANDROID"],
-      service_credentials_file: "fastlane/service-account.json",
-      android_artifact_type: "APK",
-      apk_path: "../../build/app/outputs/flutter-apk/app-release.apk",
-      android_artifact_path: apk_path,
-      groups: "internal-testers",
-      release_notes: "Build tự động từ CI/CD"
-    )
+    app: ENV["FIREBASE_APP_ID_ANDROID"],
+    service_credentials_file: "fastlane/service-account.json",
+    
+    android_artifact_type: "APK",
+    android_artifact_path: apk_path,           # Ưu tiên dùng cái này
+    
+    groups: "internal-testers",
+    release_notes: "Build #{Time.now.strftime('%Y-%m-%d %H:%M')} from GitHub Actions"
+  )
   end
   
 end
